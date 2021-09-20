@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>
+      <%= title %>
+    </h1>
+    <p>
+      Welcome to <%= title %>
+    </p>
+    <p>
+      <%= hampster %>
+    </p>
+
+    <div>
+
+      <% if (user) { %>
+        <p>
+          Welcome back, <%- user -%>
+        </p>
+      <% } else { %>
+        <p>Please login</p>
+      <% } %>
+    </div>
+  </body>
+</html>
