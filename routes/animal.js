@@ -67,9 +67,25 @@ router.post('/', function(req, res) {
             res.end();
         } else {answer = req.body}
     })
-    animals.push(answer)
-    res.json({ animals })
+    animals.push(answer);
+    res.json({ animals });
 })
 
+router.delete("/delete-by-id/:id", function(req, res) {
+    let answer = null;
+
+    animals.forEach((item, index )=> {
+        if (item.id === +req.params.id) {
+            answer = item;
+            animals.splice(index, 1);
+        }
+    })
+    if (!answer) {
+        res.send("Animal not found");
+    } else {
+        animals.splice(answer, 1);
+        res.json({ animals, message: `Successfully deleted: ${answer.animalType}`})
+    }
+})
 module.exports = router;
 
