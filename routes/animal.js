@@ -69,7 +69,7 @@ router.post('/', function(req, res) {
     })
     animals.push(answer);
     res.json({ animals });
-})
+});
 
 router.delete("/delete-by-id/:id", function(req, res) {
     let answer = null;
@@ -86,6 +86,23 @@ router.delete("/delete-by-id/:id", function(req, res) {
         animals.splice(answer, 1);
         res.json({ animals, message: `Successfully deleted: ${answer.animalType}`})
     }
-})
+});
+
+router.put("/:id", function(req, res) {
+    let foundAnimal = null;
+
+    animals.forEach((item) => {
+        if (item.id === +req.params.id) {
+            foundAnimal = item
+        }
+    })
+    if (!foundAnimal) {
+        res.send('Please check spelling');
+    } else {
+        foundAnimal.animalType = req.body.newName;
+        res.json({ animals });
+    }
+});
+
 module.exports = router;
 
