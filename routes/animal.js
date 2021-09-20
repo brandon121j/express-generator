@@ -58,5 +58,18 @@ router.get('/get-animal-by-id/:id', function(req, res) {
     }
 });
 
+router.post('/', function(req, res) {
+    let answer = null;
+
+    animals.forEach(item => {
+        if (item.animalType === req.params.animal) {
+            res.send('Error, animal already present in array');
+            res.end();
+        } else {answer = req.body}
+    })
+    animals.push(answer)
+    res.json({ animals })
+})
+
 module.exports = router;
 
