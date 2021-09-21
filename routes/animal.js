@@ -145,7 +145,25 @@ router.post("/create-new-animal", function(req, res) {
     res.json(req.body);
 });
 
+router.put('/update-by-id', function(req, res) {
+    const { id } = req.params;
+    const { animalType } = req.body;
 
+    let foundAnimal = null;
+
+    animals.forEach(function(item) {
+        if (item.id === +id) {
+            foundAnimal = true;
+            item.animalType = animalType;
+        }
+    })
+
+    if (foundAnimal) {
+        res.json({ message: `Animal at ${id} has been updated`});
+    } else {
+        res.status(404).json({ message: "Item not found" });
+    }
+});
 
 module.exports = router;
 
