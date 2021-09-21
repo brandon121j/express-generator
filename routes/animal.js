@@ -97,12 +97,34 @@ router.put("/:id", function(req, res) {
         }
     })
     if (!foundAnimal) {
-        res.send('Please check spelling');
+        res.send('Not Found');
     } else {
         foundAnimal.animalType = req.body.newName;
         res.json({ animals });
     }
 });
+
+router.post("/create-new-animal", function(req, res) {
+    const { id, animalType } = req.body;
+
+    let duplicateAnimal = false;
+
+    animals.forEach(function(item) {
+        if (item.animalType === animalType) {
+            duplicateAnimal = true;
+        }
+    })
+
+    if (duplicateAnimal) {
+        res.status(409).json({
+            message: "Animal already exists"
+        })
+    } else {
+        animal.push({ id, animalType });
+        res.json({ message: "animal created", animal: { id, animalType } })
+    }
+    res.json(req.body);
+})
 
 module.exports = router;
 
