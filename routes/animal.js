@@ -82,6 +82,7 @@ router.delete("/delete-by-id/:id", function(req, res) {
         }
     })
     if (!answer) {
+        res.status(404);
         res.send("Animal not found");
     } else {
         animals.splice(answer, 1);
