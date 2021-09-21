@@ -64,6 +64,7 @@ router.post('/', function(req, res) {
     animals.forEach(item => {
         if (item.animalType === req.params.animal) {
             res.send('Error, animal already present in array');
+            res.status(409);
             res.end();
         } else {answer = req.body}
     })
@@ -97,6 +98,7 @@ router.put("/:id", function(req, res) {
         }
     })
     if (!foundAnimal) {
+        res.status(409);
         res.send('Not Found');
     } else {
         foundAnimal.animalType = req.body.newName;
