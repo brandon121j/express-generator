@@ -73,20 +73,36 @@ router.post('/', function(req, res) {
 });
 
 router.delete("/delete-by-id/:id", function(req, res) {
-    let answer = null;
+    // let answer = null;
 
-    animals.forEach((item, index )=> {
-        if (item.id === +req.params.id) {
-            answer = item;
-            animals.splice(index, 1);
+    // animals.forEach((item, index )=> {
+    //     if (item.id === +req.params.id) {
+    //         answer = item;
+    //         animals.splice(index, 1);
+    //     }
+    // })
+    // if (!answer) {
+    //     res.status(404);
+    //     res.send("Animal not found");
+    // } else {
+    //     animals.splice(answer, 1);
+    //     res.json({ animals, message: `Successfully deleted: ${answer.animalType}`})
+    // }
+
+    const { id } = req.params;
+
+    let foundIndex = null;
+
+    animals.forEach(function (item, index) {
+        if (item.id === +id) {
+            foundIndex = index;
         }
     })
-    if (!answer) {
-        res.status(404);
-        res.send("Animal not found");
+    if (!foundIndex) {
+        res.status(409).json({ message: "Item not found" });
     } else {
-        animals.splice(answer, 1);
-        res.json({ animals, message: `Successfully deleted: ${answer.animalType}`})
+        animals.splice(foundIndex, 1);
+        res.json({ message: "Deleted" });
     }
 });
 
@@ -128,6 +144,8 @@ router.post("/create-new-animal", function(req, res) {
     }
     res.json(req.body);
 });
+
+
 
 module.exports = router;
 
