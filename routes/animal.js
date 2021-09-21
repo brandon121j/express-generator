@@ -11,7 +11,7 @@ let animals = [
         animalType: "cat"
     },
         {
-        id: 1,
+        id: 3,
         animalType: "horse"
     }
 ]
@@ -127,7 +127,7 @@ router.post("/create-new-animal", function(req, res) {
         res.json({ message: "animal created", animal: { id, animalType } })
     }
     res.json(req.body);
-})
+});
 
 module.exports = router;
 
